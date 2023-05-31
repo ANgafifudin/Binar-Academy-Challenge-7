@@ -195,9 +195,9 @@ describe("AuthenticationController", () => {
         ],
       });
       expect(mockResponse.status).toHaveBeenCalledWith(401);
-      expect(mockResponse.json).toHaveBeenCalledWith({
-        accessToken: expect.any(String),
-      });
+      expect(mockResponse.json).toHaveBeenCalledWith(expect.objectContaining({ message: expect.stringContaining("Password is not correct!") }));
+
+      
     });
 
     it("should return 404 status and an error message", async () => {
@@ -360,10 +360,10 @@ describe("AuthenticationController", () => {
         where: { name: mockRole.name },
       });
       expect(mockUserModel.create).toHaveBeenCalled();
-      expect(mockResponse.status).toHaveBeenCalledWith(401);
+      expect(mockResponse.status).toHaveBeenCalledWith(201);
       expect(mockResponse.json).toHaveBeenCalledWith({
         accessToken: expect.any(String),
-      });
+      });      
     });
   });
 
